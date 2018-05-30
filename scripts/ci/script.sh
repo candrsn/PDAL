@@ -4,6 +4,8 @@
 echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 echo "@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
 apk update
+apk add 'proj4<5.0.1'
+pak add 'proj4-dev<5.0.1'
 apk add \
     cmake \
     alpine-sdk \
@@ -35,8 +37,6 @@ apk add \
     jsoncpp-dev \
     hdf5 \
     hdf5-dev \
-    proj4<5.0.1 \
-    proj4-dev<5.0.1 \
     cpd \
     cpd-dev \
     fgt \

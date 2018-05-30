@@ -35,8 +35,8 @@ apk add \
     jsoncpp-dev \
     hdf5 \
     hdf5-dev \
-    proj4 \
-    proj4-dev \
+    proj4<5.0.1 \
+    proj4-dev<5.0.1 \
     cpd \
     cpd-dev \
     fgt \

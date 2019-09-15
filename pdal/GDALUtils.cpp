@@ -32,7 +32,6 @@
 * OF SUCH DAMAGE.
 ****************************************************************************/
 
-#include <pdal/GDALUtils.hpp>
 #include <pdal/SpatialReference.hpp>
 #include <pdal/private/SrsTransform.hpp>
 #include <pdal/util/Algorithm.hpp>
@@ -40,6 +39,8 @@
 
 #include <functional>
 #include <map>
+
+#include "GDALUtils.hpp"
 
 #include <ogr_spatialref.h>
 #include <ogr_p.h>
@@ -142,6 +143,24 @@ GDALDataType toGdalType(Dimension::Type t)
 }
 
 } //unnamed namespace
+
+
+/**
+  Reproject a point from a source projection to a destination.
+  \param x  X coordinate of point to be reprojected in-place.
+  \param y  Y coordinate of point to be reprojected in-place.
+  \param z  Z coordinate of point to be reprojected in-place.
+  \param srcSrs  String in WKT or other suitable format of box coordinates.
+  \param dstSrs  String in WKT or other suitable format to which
+    coordinates should be projected.
+  \return  Whether the reprojection was successful or not.
+*/
+bool reproject(double& x, double& y, double& z, const std::string& srcSrs,
+    const std::string& dstSrs)
+{
+    return SrsTransform(srcSrs, dstSrs).transform(x, y, z);
+}
+
 
 /**
   Reproject a bounds box from a source projection to a destination.
@@ -443,7 +462,6 @@ GDALError Raster::open()
     if (m_ds)
         return error;
 
-#if (GDAL_VERSION_MAJOR > 1)
     const char ** driverP = NULL;
     const char *drivers[2] = {0};
     if (!m_drivername.empty())
@@ -454,9 +472,6 @@ GDALError Raster::open()
 
     m_ds = (GDALDataset *)GDALOpenEx(m_filename.c_str(), GA_ReadOnly, driverP,
         nullptr, nullptr);
-#else
-    m_ds = (GDALDataset *)GDALOpen(m_filename.c_str(), GA_ReadOnly);
-#endif
     error = wake();
     return error;
 }
@@ -691,8 +706,7 @@ std::string transformWkt(std::string wkt, const SpatialReference& from,
     return geom.wkt();
 }
 
-#if (GDAL_VERSION_MAJOR < 2) || \
-    (GDAL_VERSION_MAJOR == 2) && (GDAL_VERSION_MINOR < 3)
+#if (GDAL_VERSION_MAJOR == 2) && (GDAL_VERSION_MINOR < 3)
 namespace oldgdalsupport
 {
 OGRErr createFromWkt(const char *s, OGRSpatialReference * poSR,

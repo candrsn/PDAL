@@ -28,14 +28,14 @@ mark_as_advanced(CMAKE_VERBOSE_MAKEFILE)
 
 # the next line is the ONLY place in the entire pdal system where
 # the version info is hard-coded
-set(PDAL_VERSION_STRING "1.9.1" CACHE STRING "PDAL version")
+set(PDAL_VERSION_STRING "2.0.1" CACHE STRING "PDAL version")
 
 DISSECT_VERSION()
 GET_OS_INFO()
 SET_INSTALL_DIRS()
 
-set(PDAL_API_VERSION "8")
-set(PDAL_BUILD_VERSION "9.0.1")
+set(PDAL_API_VERSION "9")
+set(PDAL_BUILD_VERSION "10")
 
 # Name of C++ library
 
@@ -240,6 +240,11 @@ if (NOT PDAL_HAVE_LAZPERF)
         ${PDAL_SRC_DIR}/compression/LazPerfVlrCompression.cpp)
     list(REMOVE_ITEM SRCS ${LAZPERF_SRCS})
 endif()
+if (GDAL_VERSION VERSION_LESS 3.0.0)
+    file(GLOB PROJPIPELINE_FILTER_SRCS
+        ${PDAL_FILTERS_DIR}/ProjPipelineFilter.cpp)
+    list(REMOVE_ITEM SRCS ${PROJPIPELINE_FILTER_SRCS})
+endif()
 PDAL_ADD_LIBRARY(${PDAL_BASE_LIB_NAME} ${SRCS} ${RPLY_SRCS})
 
 #
@@ -329,7 +334,10 @@ install(DIRECTORY ${PDAL_INCLUDE_DIR}/pdal
     FILES_MATCHING PATTERN "*.hpp"
     PATTERN "gitsha.h"
     PATTERN "pdal/private" EXCLUDE
+    PATTERN "pdal/io/private" EXCLUDE
+    PATTERN "pdal/pdal/private" EXCLUDE
     PATTERN "pdal/util/private" EXCLUDE
+    PATTERN "pdal/filters/private" EXCLUDE
     ${ZSTD_EXCLUDES}
     ${ZLIB_EXCLUDES}
     ${LZMA_EXCLUDES}

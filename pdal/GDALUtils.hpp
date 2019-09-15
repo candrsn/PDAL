@@ -70,6 +70,8 @@ PDAL_DLL bool reprojectBounds(BOX3D& box, const std::string& srcSrs,
     const std::string& dstSrs);
 PDAL_DLL bool reprojectBounds(BOX2D& box, const std::string& srcSrs,
     const std::string& dstSrs);
+PDAL_DLL bool reproject(double& x, double& y, double& z,
+    const std::string& srcSrs, const std::string& dstSrs);
 PDAL_DLL std::string lastError();
 
 typedef std::shared_ptr<void> RefPtr;
@@ -866,8 +868,7 @@ namespace gdal
 inline OGRGeometry *createFromWkt(const char *s)
 {
     OGRGeometry *newGeom;
-#if (GDAL_VERSION_MAJOR < 2) || \
-    ((GDAL_VERSION_MAJOR == 2) && GDAL_VERSION_MINOR < 3)
+#if ((GDAL_VERSION_MAJOR == 2) && GDAL_VERSION_MINOR < 3)
     oldgdalsupport::createFromWkt(s, nullptr, &newGeom);
 #else
     OGRGeometryFactory::createFromWkt(s, nullptr, &newGeom);
@@ -877,8 +878,7 @@ inline OGRGeometry *createFromWkt(const char *s)
 
 inline OGRGeometry *createFromGeoJson(const char *s)
 {
-#if (GDAL_VERSION_MAJOR < 2) || \
-    ((GDAL_VERSION_MAJOR == 2) && GDAL_VERSION_MINOR < 3)
+#if ((GDAL_VERSION_MAJOR == 2) && GDAL_VERSION_MINOR < 3)
     return oldgdalsupport::createFromGeoJson(s);
 #else
     return OGRGeometryFactory::createFromGeoJson(s);

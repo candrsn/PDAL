@@ -4,8 +4,8 @@ Version:	2.0.1
 Release:	1%{?dist}
 License:	BSD
 Source:		https://github.com/%{name}/%{name}/archive/%{name}-%{version}-src.tar.gz
-URL:		http://www.pdal.io
-Source1:	http://download.osgeo.org/proj/vdatum/%{name}-vdatums.zip
+URL:		https://www.pdal.io
+Source1:	https://download.osgeo.org/proj/vdatum/%{name}-vdatums.zip
 #Source1:        http://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.gtx
 #Source2:        http://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.txt
 #Source3:        http://download.osgeo.org/proj/vdatum/egm96_15/egm96_15.gtx

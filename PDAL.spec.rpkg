@@ -3,22 +3,8 @@ Name:		{{{ git_name }}}
 Version:	{{{ git_version }}}
 Release:	1%{?dist}
 License:	BSD
-Source:		https://github.com/%{name}/%{name}/archive/%{name}-%{version}-src.tar.gz
+Source:		{{{ git_pack }}}
 URL:		https://www.pdal.io
-#Source1:	https://download.osgeo.org/proj/vdatum/%{name}-vdatums.zip
-Source1:        https://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.gtx
-Source2:        https://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.txt
-Source3:        https://download.osgeo.org/proj/vdatum/egm96_15/egm96_15.gtx
-Source4:        https://download.osgeo.org/proj/vdatum/egm96_15/WW15MGH.TXT
-Source5:        https://download.osgeo.org/proj/vdatum/vertcon/README.TXT
-Source6:        https://download.osgeo.org/proj/vdatum/vertcon/vertconc.gtx
-Source7:        https://download.osgeo.org/proj/vdatum/vertcon/vertcone.gtx
-Source8:        https://download.osgeo.org/proj/vdatum/vertcon/vertconw.gtx
-Source9:        https://download.osgeo.org/proj/vdatum/usa_geoid1999.zip
-Source10:       https://download.osgeo.org/proj/vdatum/usa_geoid2003.zip
-Source11:       https://download.osgeo.org/proj/vdatum/usa_geoid2009.zip
-Source12:       https://download.osgeo.org/proj/vdatum/usa_geoid2012.zip
-Source13:       https://download.osgeo.org/proj/vdatum/usa_geoid2012b.zip
 
 BuildRequires:	cmake boost-devel >= 1.57, proj >= 4.9.0, boost >= 1.57, glibc-headers
 BuildRequires:	postgresql-devel, geos-devel, gdal-devel, libgeotiff-devel
@@ -63,14 +49,6 @@ The pdal-libs package provides the essential shared libraries for any
 PDAL client program or interface. You will need to install this package
 to use PDAL
 
-%package vdatums
-Summary:        Vertical datum and geoid files for PDAL
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
-
-%description vdatums
-This package contains vertical datum and geoid files for PDAL.
-
 %prep
 %setup -q -n %{name}-%{version}-src
 
@@ -104,15 +82,6 @@ make install/fast DESTDIR=%{buildroot}
 # Remove duplicated cmake files
 # %{__rm} -f %{buildroot}/usr/lib/pdal/cmake/PDAL*.cmake
 
-# unpack vertical datums
-mkdir -p %{buildroot}%{_datadir}/proj
-mkdir vdatum
-pushd vdatum
-unzip -o %{SOURCE1}
-mv *.gtx  %{buildroot}%{_datadir}/proj/
-popd
-rm -rf vdatum
-
 %postun -p /sbin/ldconfig
 %post -p /sbin/ldconfig
 
@@ -131,9 +100,6 @@ rm -rf vdatum
 %{_libdir}/cmake/PDAL/PDAL*.cmake
 #%{_libdir}/pkgconfig/pdal.pc
 %{_libdir}/pkgconfig/*.pc
-
-%files vdatums
-%attr(0644,root,root) %{_datadir}/proj/*.gtx
 
 %changelog
 * Mon Apr 01 2019 Markus Neteler <neteler@mundialis.de> 1.8.0-2

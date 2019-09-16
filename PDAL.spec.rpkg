@@ -1,24 +1,24 @@
 Summary:	Point Data Abstraction Library
-Name:		PDAL
-Version:	2.0.1
+Name:		{{{ git_name }}}
+Version:	{{{ git_version }}}
 Release:	1%{?dist}
 License:	BSD
 Source:		https://github.com/%{name}/%{name}/archive/%{name}-%{version}-src.tar.gz
 URL:		https://www.pdal.io
-Source1:	https://download.osgeo.org/proj/vdatum/%{name}-vdatums.zip
-#Source1:        http://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.gtx
-#Source2:        http://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.txt
-#Source3:        http://download.osgeo.org/proj/vdatum/egm96_15/egm96_15.gtx
-#Source4:        http://download.osgeo.org/proj/vdatum/egm96_15/WW15MGH.TXT
-#Source5:        http://download.osgeo.org/proj/vdatum/vertcon/README.TXT
-#Source6:        http://download.osgeo.org/proj/vdatum/vertcon/vertconc.gtx
-#Source7:        http://download.osgeo.org/proj/vdatum/vertcon/vertcone.gtx
-#Source8:        http://download.osgeo.org/proj/vdatum/vertcon/vertconw.gtx
-#Source9:        http://download.osgeo.org/proj/vdatum/usa_geoid1999.zip
-#Source10:       http://download.osgeo.org/proj/vdatum/usa_geoid2003.zip
-#Source11:       http://download.osgeo.org/proj/vdatum/usa_geoid2009.zip
-#Source12:       http://download.osgeo.org/proj/vdatum/usa_geoid2012.zip
-#Source13:       http://download.osgeo.org/proj/vdatum/usa_geoid2012b.zip
+#Source1:	https://download.osgeo.org/proj/vdatum/%{name}-vdatums.zip
+Source1:        https://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.gtx
+Source2:        https://download.osgeo.org/proj/vdatum/egm08_25/egm08_25.txt
+Source3:        https://download.osgeo.org/proj/vdatum/egm96_15/egm96_15.gtx
+Source4:        https://download.osgeo.org/proj/vdatum/egm96_15/WW15MGH.TXT
+Source5:        https://download.osgeo.org/proj/vdatum/vertcon/README.TXT
+Source6:        https://download.osgeo.org/proj/vdatum/vertcon/vertconc.gtx
+Source7:        https://download.osgeo.org/proj/vdatum/vertcon/vertcone.gtx
+Source8:        https://download.osgeo.org/proj/vdatum/vertcon/vertconw.gtx
+Source9:        https://download.osgeo.org/proj/vdatum/usa_geoid1999.zip
+Source10:       https://download.osgeo.org/proj/vdatum/usa_geoid2003.zip
+Source11:       https://download.osgeo.org/proj/vdatum/usa_geoid2009.zip
+Source12:       https://download.osgeo.org/proj/vdatum/usa_geoid2012.zip
+Source13:       https://download.osgeo.org/proj/vdatum/usa_geoid2012b.zip
 
 BuildRequires:	cmake boost-devel >= 1.57, proj >= 4.9.0, boost >= 1.57, glibc-headers
 BuildRequires:	postgresql-devel, geos-devel, gdal-devel, libgeotiff-devel

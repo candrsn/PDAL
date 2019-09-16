@@ -1,6 +1,6 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
-Version:	1.9.1
+Version:	2.0.1
 Release:	1%{?dist}
 License:	BSD
 Source:		https://github.com/%{name}/%{name}/archive/%{name}-%{version}-src.tar.gz

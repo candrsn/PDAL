@@ -5,6 +5,7 @@ Release:	1%{?dist}
 License:	BSD
 Source:		{{{ git_pack }}}
 URL:		https://www.pdal.io
+VCS:		{{{ git_vcs }}}
 
 BuildRequires:	cmake boost-devel >= 1.57, proj >= 4.9.0, boost >= 1.57, glibc-headers
 BuildRequires:	postgresql-devel, geos-devel, gdal-devel, libgeotiff-devel
@@ -50,7 +51,8 @@ PDAL client program or interface. You will need to install this package
 to use PDAL
 
 %prep
-%setup -q -n %{name}-%{version}-src
+{{{ git_setup_macro }}}
+#%setup -q -n %{name}-%{version}-src
 
 %build
 %cmake	-D PDAL_LIB_INSTALL_DIR:PATH=%{_lib} \
@@ -102,77 +104,5 @@ make install/fast DESTDIR=%{buildroot}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Mon Apr 01 2019 Markus Neteler <neteler@mundialis.de> 1.8.0-2
-- fix for "nothing provides pkgconfig(geos) needed by PDAL-devel..."
-
-* Wed Nov 07 2018 Markus Neteler <neteler@mundialis.de> 1.8.0-1
-- New 1.8.0 upstream release
-
-* Mon May 14 2018 Markus Neteler <neteler@mundialis.de> 1.7.2-2
-- New 1.7.2 upstream release
-- hexer no longer required
-
-* Thu May 10 2018 Markus Neteler <neteler@mundialis.de> 1.7.2-1
-- New 1.7.2RC2 upstream release
-- enforce python3
-- set -DBUILD_PLUGIN_PYTHON:BOOL=FALSE to avoid numpy detection error
-
-* Fri Apr 20 2018 Markus Neteler <neteler@mundialis.de> 1.7.0-1
-- New 1.7.0 upstream release
-- patch for https://github.com/PDAL/PDAL/issues/1899
-- patch using https://github.com/PDAL/PDAL/pull/1900
-
-* Thu Dec 14 2017 Markus Neteler <neteler@mundialis.de> 1.6.0-3
-- fix pkgconfig (must be in -devel)
-
-* Sat Oct 28 2017 Markus Neteler <neteler@mundialis.de> 1.6.0
-- New 1.6.0 upstream release
-
-* Tue Oct 24 2017 Markus Neteler <neteler@mundialis.de> 1.5.0
-- New 1.5.0 upstream release
-- vertical datums added
-
-* Sun Jan  8 2017 Markus Neteler <neteler@osgeo.org> 1.4.0
-- New upstream release
-- configure tweaks
-
-* Sat Jun 20 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.9-4
-- Change build type from Debug to Release
-
-* Mon Apr 20 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.9-3
-- Various updates:
- - Build with hexer support
- - Own directories in devel subpackage
- - omit deprecated Group: tags and %%clean section
- - Use better macros for make and cmake
- - use %%{?_isa} macro in subpkg dependencies
- - have %%build section envoke 'make'
- - Update %%install section
- - Improve cmake build parameters
- - Use %%license macro
- - Add %%doc
- - Get rid of BuildRoot definition
- - No need to cleanup buildroot during %%install
- - Remove %%defattr
- - Run ldconfig
- - Add PostgreSQL and PointCloud support
- - Add Python and PCL plugins
- - Build with GEOS and OPENNI2 support
- - Update BR and Requires
- - Add -libs subpackage, and move related files there
-
-* Fri Apr 10 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.9-2
-- Add -devel subpackage, and move related files there.
-
-* Fri Apr 10 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.9-1
-- Update to 0.9.9
-
-* Tue Mar 10 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.8-3
-- Add support for more stuff.
-
-* Sun Mar 8 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.8-2
-- Rebuild with new GDAL and the new build points2grid.
-
-* Tue Jan 13 2015 Devrim GUNDUZ <devrim@gunduz.org> 0.9.8-1
-- Initial packaging
+{{{ git_changelog }}}
 
